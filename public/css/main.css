@@ -216,6 +216,7 @@ p {
   color: #d0d0d0;
   font-size: var(--caption-font-size);
   margin: auto;
+  transition: opacity 0.2s;
 }
 
 .suzu .words {

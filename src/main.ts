@@ -2,9 +2,10 @@ import { Words, Word } from './words';
 
 (() => {
     // このスクリプトがbodyの最後に追加されている前提.
-    const words = $('.suzu .words');
     const suzu = $('.suzu');
     const name = $('.suzu .name');
+    const caption = $('.suzu .caption');
+    const words = $('.suzu .words');
 
     const sleep = (t: number) => new Promise(r => setTimeout(r, t));
 
@@ -38,10 +39,13 @@ import { Words, Word } from './words';
 
     async function changeWords(evilFlag: boolean) {
         words.css('opacity', '0');
+        caption.css('opacity', '0');
         // 完全に消えるまで待つ.
         await sleep(250);
         setWords(evilFlag);
+        caption.text(evilFlag ? 'King of kings.' : '真面目で清楚な図書委員長');
         words.css('opacity', '1');
+        caption.css('opacity', '1');
     }
 
     let filter = {
