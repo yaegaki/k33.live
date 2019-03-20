@@ -1,4 +1,5 @@
 import { Words, Word } from './words';
+import { Player, FilterOption } from './player';
 
 (() => {
     // このスクリプトがbodyの最後に追加されている前提.
@@ -48,21 +49,20 @@ import { Words, Word } from './words';
         caption.css('opacity', '1');
     }
 
-    let filter = {
+    let filter: FilterOption = {
         'grayscale': 0,
         'brightness': 50,
         'blur': 5,
     };
 
     // (;_;)
-    var e: any = $('#bgndVideo');
-    var player = e.YTPlayer();
+    const player = new Player('#bgndVideo');
 
-    player.on('YTPReady', function () {
-        player.YTPApplyFilters(filter);
+    player.On('YTPReady', function () {
+        player.ApplyFilters(filter);
     });
 
-    player.on('YTPStart', () => {
+    player.On('YTPStart', () => {
         // ローディングのアイコンを非表示にするために少し非表示.
         setTimeout(() => {
             $('.mbYTP_wrapper').addClass('ready');
@@ -70,7 +70,7 @@ import { Words, Word } from './words';
     });
 
     let lastUpdateDate = Date.now();
-    player.on('YTPTime', () => {
+    player.On('YTPTime', () => {
         lastUpdateDate = Date.now();
     });
 
@@ -79,7 +79,7 @@ import { Words, Word } from './words';
         const diff = Date.now() - lastUpdateDate;
         // 5秒以上止まっている場合はplayしてみる
         if (diff > 5000) {
-            player.YTPPlay();
+            player.Play();
         }
     }, 5000);
 
@@ -108,7 +108,7 @@ import { Words, Word } from './words';
                 name.text('神楽すず.LIVE');
             }
             // 背景VIDEOに更新したフィルタを適用.
-            player.YTPApplyFilters(filter);
+            player.ApplyFilters(filter);
         }
     }
 
